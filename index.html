@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог заведений России</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Каталог заведений России</h1>
+            <nav>
+                <ul>
+                    <li><a href="#" id="cities-link">Города</a></li>
+                    <li><a href="#" id="categories-link">Категории</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="cities-section" class="active">
+            <h2>Выберите город</h2>
+            <div id="cities-list" class="grid-container"></div>
+        </section>
+
+        <section id="categories-section">
+            <h2>Категории заведений</h2>
+            <div id="categories-list" class="grid-container"></div>
+        </section>
+
+        <section id="establishments-section">
+            <h2 id="establishments-title">Заведения</h2>
+            <div id="establishments-filters">
+                <input type="text" id="search-input" placeholder="Поиск по названию...">
+                <select id="category-filter">
+                    <option value="">Все категории</option>
+                </select>
+            </div>
+            <div id="establishments-list" class="grid-container"></div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
