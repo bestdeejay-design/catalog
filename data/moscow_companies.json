@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Ресторан Итальянская Пьяцца",
+    "address": "Москва, ул. Тверская, 15",
+    "phone": "+7 (495) 123-45-67",
+    "website": "https://italian-piazza.ru",
+    "description": "Уютный итальянский ресторан с домашней пастой и лучшими сортами вина",
+    "rating": 4.7,
+    "review_count": 245,
+    "images": ["https://example.com/img1.jpg"],
+    "features": ["Wi-Fi", "Доставка", "Вегетарианское меню"],
+    "working_hours": ["Пн-Чт: 11:00-23:00", "Пт-Сб: 11:00-00:00", "Вс: 10:00-23:00"],
+    "social_links": {"instagram": "https://instagram.com/piazza"},
+    "menu": {"breakfast": true, "lunch": true, "dinner": true},
+    "city_id": 1,
+    "created_at": "2024-01-15",
+    "updated_at": "2024-02-20"
+  }
+]
