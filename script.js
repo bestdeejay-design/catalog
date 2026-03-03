@@ -17,6 +17,14 @@ async function loadData() {
         const categoriesResponse = await fetch('data/2-categories.json');
         categories = await categoriesResponse.json();
         
+        // Загружаем теги
+        const tagsResponse = await fetch('data/3-tags.json');
+        const tags = await tagsResponse.json();
+        
+        // Загружаем связи компаний с категориями
+        const companyCategoriesResponse = await fetch('data/4-company_categories.json');
+        const companyCategoriesData = await companyCategoriesResponse.json();
+        
         // Отображаем города при загрузке
         displayCities();
         
