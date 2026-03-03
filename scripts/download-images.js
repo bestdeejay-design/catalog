@@ -7,7 +7,7 @@ const axios = require('axios');
 // КОНФИГУРАЦИЯ
 // ============================================
 const OUTPUT_DIR = 'assets/images';
-const CITIES_TO_PROCESS = ['moscow']; // Пока только Москва для теста
+const CITIES_TO_PROCESS = ['yekaterinburg']; // Екатеринбург
 const DELAY_MS = 100; // Задержка между запросами чтобы не блокировали
 
 // ============================================
