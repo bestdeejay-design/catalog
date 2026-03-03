@@ -5,7 +5,8 @@
   "main": "scripts/download-images.js",
   "scripts": {
     "download-images": "node scripts/download-images.js",
-    "download-images:all": "node scripts/download-images-all.js"
+    "download-all": "node scripts/download-all-cities.js",
+    "create-queue": "node scripts/create-download-queue.js"
   },
   "keywords": [
     "catalog",

@@ -1,8 +1,5 @@
-# Игнорируем загруженные изображения (тяжелые файлы)
-assets/images/
-
-# Но оставляем структуру папок
-assets/images/.gitkeep
-
 # Игнорируем зависимости npm
 node_modules/
+
+# Git LFS для изображений
+assets/images/ !*.gitkeep

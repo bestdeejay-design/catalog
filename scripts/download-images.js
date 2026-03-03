@@ -7,7 +7,33 @@ const axios = require('axios');
 // КОНФИГУРАЦИЯ
 // ============================================
 const OUTPUT_DIR = 'assets/images';
-const CITIES_TO_PROCESS = ['yekaterinburg']; // Екатеринбург
+
+// Запускаем загрузку ВСЕХ городов по очереди из топ-20
+const citiesData = JSON.parse(fs.readFileSync('data-generated/cities.json', 'utf-8'));
+const topCities = citiesData
+    .sort((a, b) => (b.establishments_count || 0) - (a.establishments_count || 0))
+    .slice(0, 20);
+
+console.log('🚀 ЗАГРУЗКА ТОП-20 ГОРОДОВ ПО ОЧЕРЕДИ');
+console.log('='.repeat(70));
+console.log(`Всего городов: ${topCities.length}`);
+topCities.forEach((city, i) => {
+    console.log(`${i+1}. ${city.name} (${city.establishments_count || 0} зав.)`);
+});
+console.log('='.repeat(70));
+
+// Сохраняем текущий индекс города
+let currentCityIndex = parseInt(process.argv[2]) || 0;
+
+if (currentCityIndex >= topCities.length) {
+    console.log('✅ Все города загружены!');
+    process.exit(0);
+}
+
+const citySlug = topCities[currentCityIndex].slug;
+console.log(`\n📍 Текущий город: ${citySlug} (#${currentCityIndex + 1}/${topCities.length})`);
+
+const CITIES_TO_PROCESS = [citySlug];
 const DELAY_MS = 100; // Задержка между запросами чтобы не блокировали
 
 // ============================================
