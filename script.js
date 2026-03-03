@@ -4,6 +4,7 @@ let categories = [];
 let establishments = [];
 let currentCityId = null;
 let currentCategoryId = null;
+let currentEstablishment = null;
 
 // Загрузка данных из JSON файлов
 async function loadData() {
@@ -43,6 +44,12 @@ function setupEventListeners() {
     
     // Обработчик для фильтрации по категории
     document.getElementById('category-filter').addEventListener('change', filterEstablishments);
+    
+    // Обработчик для кнопки "Назад к списку"
+    document.getElementById('back-to-list').addEventListener('click', (e) => {
+        e.preventDefault();
+        showSection('establishments-section');
+    });
 }
 
 // Показ определенной секции
@@ -58,6 +65,11 @@ function showSection(sectionId) {
     // Если показываем секцию заведений, обновляем список
     if (sectionId === 'establishments-section' && currentCityId) {
         loadEstablishmentsForCity(currentCityId);
+    }
+    
+    // Если показываем детальную страницу, отображаем текущее заведение
+    if (sectionId === 'establishment-detail-section' && currentEstablishment) {
+        displayEstablishmentDetail(currentEstablishment);
     }
 }
 
@@ -179,6 +191,12 @@ function displayEstablishments(establishmentsToDisplay) {
             <p><strong>Отзывов:</strong> ${est.review_count || 0}</p>
         `;
         
+        // Добавляем обработчик клика для перехода к детальной странице
+        establishmentCard.addEventListener('click', () => {
+            currentEstablishment = est;
+            showSection('establishment-detail-section');
+        });
+        
         establishmentsContainer.appendChild(establishmentCard);
     });
 }
@@ -207,3 +225,185 @@ function filterEstablishments() {
 
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', loadData);
+
+// Функция для отображения детальной информации о заведении
+function displayEstablishmentDetail(establishment) {
+    // Устанавливаем основную информацию
+    document.getElementById('detail-name').textContent = establishment.name || 'Название не указано';
+    document.getElementById('detail-rating').textContent = establishment.rating || 'Нет рейтинга';
+    document.getElementById('detail-review-count').textContent = `(${establishment.review_count || 0} отзывов)`;
+    
+    // Устанавливаем категорию
+    const category = categories.find(cat => cat.id === establishment.category_id);
+    document.getElementById('detail-category').textContent = category ? category.name : 'Категория не указана';
+    
+    // Устанавливаем контактную информацию
+    document.getElementById('detail-address').textContent = establishment.address || 'Адрес не указан';
+    document.getElementById('detail-phone').textContent = establishment.phone || 'Телефон не указан';
+    document.getElementById('detail-website').textContent = establishment.website || 'Сайт не указан';
+    
+    // Устанавливаем описание
+    document.getElementById('detail-description').textContent = establishment.description || 'Описание отсутствует';
+    
+    // Устанавливаем часы работы
+    const workingHoursList = document.getElementById('detail-working-hours');
+    workingHoursList.innerHTML = '';
+    if (establishment.working_hours) {
+        try {
+            const hoursArray = JSON.parse(establishment.working_hours);
+            hoursArray.forEach(hour => {
+                const hourItem = document.createElement('li');
+                hourItem.textContent = hour;
+                workingHoursList.appendChild(hourItem);
+            });
+        } catch (e) {
+            console.error('Ошибка при разборе часов работы:', e);
+        }
+    }
+    
+    // Устанавливаем изображения
+    const imageCarousel = document.getElementById('main-detail-image');
+    const thumbnailsContainer = document.getElementById('detail-thumbnails');
+    thumbnailsContainer.innerHTML = '';
+    
+    if (establishment.images) {
+        try {
+            const imagesArray = JSON.parse(establishment.images);
+            if (imagesArray.length > 0) {
+                imageCarousel.src = imagesArray[0].preview;
+                
+                imagesArray.forEach((img, index) => {
+                    const thumbImg = document.createElement('img');
+                    thumbImg.src = img.preview;
+                    thumbImg.alt = `Изображение ${index + 1}`;
+                    thumbImg.addEventListener('click', () => {
+                        imageCarousel.src = img.original || img.preview;
+                        // Обновляем активное изображение в миниатюрах
+                        document.querySelectorAll('#detail-thumbnails img').forEach(thumb => {
+                            thumb.classList.remove('active');
+                        });
+                        thumbImg.classList.add('active');
+                    });
+                    
+                    if (index === 0) {
+                        thumbImg.classList.add('active');
+                    }
+                    
+                    thumbnailsContainer.appendChild(thumbImg);
+                });
+            }
+        } catch (e) {
+            console.error('Ошибка при разборе изображений:', e);
+        }
+    }
+    
+    // Устанавливаем меню
+    const menuContainer = document.getElementById('detail-menu');
+    menuContainer.innerHTML = '';
+    
+    if (establishment.menu) {
+        try {
+            const menuData = JSON.parse(establishment.menu);
+            
+            Object.keys(menuData).forEach(category => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.classList.add('menu-category');
+                
+                const categoryTitle = document.createElement('h4');
+                categoryTitle.textContent = category;
+                categoryDiv.appendChild(categoryTitle);
+                
+                const itemsList = document.createElement('ul');
+                menuData[category].forEach(item => {
+                    const itemLi = document.createElement('li');
+                    itemLi.innerHTML = `<strong>${item.name}</strong> - ${item.price || 'Цена не указана'}`;
+                    itemsList.appendChild(itemLi);
+                });
+                
+                categoryDiv.appendChild(itemsList);
+                menuContainer.appendChild(categoryDiv);
+            });
+        } catch (e) {
+            console.error('Ошибка при разборе меню:', e);
+        }
+    }
+    
+    // Устанавливаем социальные ссылки
+    const socialLinksContainer = document.getElementById('detail-social-links');
+    socialLinksContainer.innerHTML = '';
+    
+    if (establishment.social_links) {
+        try {
+            const socialData = JSON.parse(establishment.social_links);
+            
+            Object.keys(socialData).forEach(platform => {
+                const platformLinks = Array.isArray(socialData[platform]) ? socialData[platform] : [socialData[platform]];
+                
+                platformLinks.forEach(link => {
+                    const socialLink = document.createElement('a');
+                    socialLink.href = link;
+                    socialLink.textContent = platform;
+                    socialLink.target = '_blank';
+                    socialLink.classList.add('social-link');
+                    socialLinksContainer.appendChild(socialLink);
+                });
+            });
+        } catch (e) {
+            console.error('Ошибка при разборе социальных ссылок:', e);
+        }
+    }
+    
+    // Устанавливаем особенности
+    const featuresContainer = document.getElementById('detail-features');
+    featuresContainer.innerHTML = '';
+    
+    if (establishment.features) {
+        try {
+            const featuresArray = JSON.parse(establishment.features);
+            
+            const featuresGrid = document.createElement('div');
+            featuresGrid.classList.add('features-grid');
+            
+            featuresArray.forEach(feature => {
+                const featureItem = document.createElement('div');
+                featureItem.textContent = feature;
+                featureItem.classList.add('feature-item');
+                featuresGrid.appendChild(featureItem);
+            });
+            
+            featuresContainer.appendChild(featuresGrid);
+        } catch (e) {
+            console.error('Ошибка при разборе особенностей:', e);
+        }
+    }
+    
+    // Настройка кнопок действий
+    const callButton = document.getElementById('call-establishment');
+    const websiteButton = document.getElementById('visit-website');
+    
+    callButton.onclick = () => {
+        if (establishment.phone) {
+            window.location.href = `tel:${establishment.phone.replace(/\s+/g, '')}`;
+        }
+    };
+    
+    websiteButton.onclick = () => {
+        if (establishment.website) {
+            window.open(establishment.website, '_blank');
+        }
+    };
+    
+    // Проверяем, нужно ли отключить кнопки
+    callButton.disabled = !establishment.phone;
+    websiteButton.disabled = !establishment.website;
+    
+    if (!establishment.phone) {
+        callButton.style.opacity = '0.5';
+        callButton.style.cursor = 'not-allowed';
+    }
+    
+    if (!establishment.website) {
+        websiteButton.style.opacity = '0.5';
+        websiteButton.style.cursor = 'not-allowed';
+    }
+}

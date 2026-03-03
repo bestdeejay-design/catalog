@@ -41,6 +41,98 @@
             </div>
             <div id="establishments-list" class="grid-container"></div>
         </section>
+        
+        <!-- Детальная страница заведения -->
+        <section id="establishment-detail-section">
+            <div class="detail-container">
+                <button id="back-to-list" class="back-button">&larr; Назад к списку</button>
+                
+                <div class="establishment-detail-header">
+                    <div class="establishment-detail-main-info">
+                        <h2 id="detail-name">Название заведения</h2>
+                        <div class="establishment-rating">
+                            <span id="detail-rating" class="rating">0.0</span>
+                            <span id="detail-review-count">(0 отзывов)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="establishment-category">
+                        <span id="detail-category">Категория</span>
+                    </div>
+                </div>
+                
+                <div class="establishment-detail-content">
+                    <div class="detail-left-column">
+                        <div class="detail-images">
+                            <div id="detail-image-carousel" class="image-carousel">
+                                <img id="main-detail-image" src="" alt="Изображение заведения" />
+                            </div>
+                            <div id="detail-thumbnails" class="thumbnails"></div>
+                        </div>
+                        
+                        <div class="detail-description">
+                            <h3>Описание</h3>
+                            <p id="detail-description">Описание заведения будет отображаться здесь...</p>
+                        </div>
+                        
+                        <div class="detail-working-hours">
+                            <h3>Часы работы</h3>
+                            <ul id="detail-working-hours"></ul>
+                        </div>
+                        
+                        <div class="detail-menu">
+                            <h3>Меню</h3>
+                            <div id="detail-menu"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-right-column">
+                        <div class="detail-contact-info">
+                            <h3>Контактная информация</h3>
+                            <div class="contact-item">
+                                <label>Адрес:</label>
+                                <span id="detail-address">Адрес не указан</span>
+                            </div>
+                            <div class="contact-item">
+                                <label>Телефон:</label>
+                                <span id="detail-phone">Телефон не указан</span>
+                            </div>
+                            <div class="contact-item">
+                                <label>Веб-сайт:</label>
+                                <span id="detail-website">Сайт не указан</span>
+                            </div>
+                            
+                            <div class="contact-actions">
+                                <button id="call-establishment" class="action-button">Позвонить</button>
+                                <button id="visit-website" class="action-button">Перейти на сайт</button>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-location-map">
+                            <h3>Местоположение</h3>
+                            <div id="map-placeholder">
+                                <p>Карта будет отображаться здесь</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-social-links">
+                            <h3>Социальные сети</h3>
+                            <div id="detail-social-links"></div>
+                        </div>
+                        
+                        <div class="detail-features">
+                            <h3>Особенности</h3>
+                            <div id="detail-features"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-reviews-section">
+                    <h3>Отзывы</h3>
+                    <div id="detail-reviews"></div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <script src="script.js"></script>
