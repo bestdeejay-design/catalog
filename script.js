@@ -9,21 +9,13 @@ let currentEstablishment = null;
 // Загрузка данных из JSON файлов
 async function loadData() {
     try {
-        // Загружаем города
-        const citiesResponse = await fetch('data/1-cities.json');
+        // Загружаем города (из рабочей папки)
+        const citiesResponse = await fetch('data-generated/cities.json');
         cities = await citiesResponse.json();
         
-        // Загружаем категории
-        const categoriesResponse = await fetch('data/2-categories.json');
+        // Загружаем категории (из рабочей папки)
+        const categoriesResponse = await fetch('data-generated/categories.json');
         categories = await categoriesResponse.json();
-        
-        // Загружаем теги
-        const tagsResponse = await fetch('data/3-tags.json');
-        const tags = await tagsResponse.json();
-        
-        // Загружаем связи компаний с категориями
-        const companyCategoriesResponse = await fetch('data/4-company_categories.json');
-        const companyCategoriesData = await companyCategoriesResponse.json();
         
         // Отображаем города при загрузке
         displayCities();
@@ -98,9 +90,11 @@ function displayCities() {
     cities.forEach(city => {
         const cityCard = document.createElement('div');
         cityCard.className = 'city-card';
+        // Используем establishments_count вместо weight
+        const count = city.establishments_count || 0;
         cityCard.innerHTML = `
             <h3>${city.name}</h3>
-            <p>Заведений: ${city.weight}</p>
+            <p>Заведений: ${count.toLocaleString()}</p>
         `;
         cityCard.addEventListener('click', () => {
             currentCityId = city.id;
@@ -143,12 +137,12 @@ async function loadAllEstablishmentsByCategory(categoryId) {
         // Сбрасываем текущий город, так как показываем заведения из всех городов
         currentCityId = null;
         
-        // Собираем заведения из всех городов
+        // Собираем заведения из всех городов (из рабочей папки)
         let allEstablishments = [];
         
         for (const city of cities) {
             try {
-                const response = await fetch(`data/${city.slug}.json`);
+                const response = await fetch(`data-generated/${city.slug}.json`);
                 if (response.ok) {
                     const cityEstablishments = await response.json();
                     // Фильтруем заведения по выбранной категории
@@ -182,8 +176,8 @@ async function loadEstablishmentsForCity(cityId) {
         const cityName = cities.find(city => city.id === cityId)?.slug;
         if (!cityName) return;
         
-        // Загружаем заведения для выбранного города
-        const response = await fetch(`data/${cityName}.json`);
+        // Загружаем заведения для выбранного города (из рабочей папки)
+        const response = await fetch(`data-generated/${cityName}.json`);
         if (!response.ok) {
             throw new Error(`Не удалось загрузить данные для ${cityName}`);
         }

@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  analyze:
+    build:
+      dockerfile: Dockerfile.analyze
+    volumes:
+      - ./data:/app/data

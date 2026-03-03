@@ -1,0 +1,666 @@
+[
+  {
+    "id": 1,
+    "name": "Москва",
+    "slug": "moscow",
+    "weight": 699875,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 294
+  },
+  {
+    "id": 2,
+    "name": "Санкт-Петербург",
+    "slug": "spb",
+    "weight": 309282,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 285
+  },
+  {
+    "id": 3,
+    "name": "Новосибирск",
+    "slug": "novosibirsk",
+    "weight": 124095,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 201
+  },
+  {
+    "id": 4,
+    "name": "Екатеринбург",
+    "slug": "yekaterinburg",
+    "weight": 116921,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 219
+  },
+  {
+    "id": 5,
+    "name": "Челябинск",
+    "slug": "cheliabinsk",
+    "weight": 96600,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 232
+  },
+  {
+    "id": 6,
+    "name": "Казань",
+    "slug": "kazan",
+    "weight": 90753,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 165
+  },
+  {
+    "id": 7,
+    "name": "Нижний Новгород",
+    "slug": "nnovgorod",
+    "weight": 84543,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 163
+  },
+  {
+    "id": 8,
+    "name": "Красноярск",
+    "slug": "krasnoyarsk",
+    "weight": 81685,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 134
+  },
+  {
+    "id": 9,
+    "name": "Уфа",
+    "slug": "ufa",
+    "weight": 79149,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 175
+  },
+  {
+    "id": 10,
+    "name": "Краснодар",
+    "slug": "krasnodar",
+    "weight": 76190,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 182
+  },
+  {
+    "id": 11,
+    "name": "Пермь",
+    "slug": "perm",
+    "weight": 74443,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 144
+  },
+  {
+    "id": 12,
+    "name": "Ростов-на-Дону",
+    "slug": "rostov-na-donu",
+    "weight": 73335,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 171
+  },
+  {
+    "id": 13,
+    "name": "Самара",
+    "slug": "samara",
+    "weight": 72375,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 173
+  },
+  {
+    "id": 14,
+    "name": "Кемерово",
+    "slug": "kemerovo",
+    "weight": 62065,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 72
+  },
+  {
+    "id": 15,
+    "name": "Барнаул",
+    "slug": "barnaul",
+    "weight": 57538,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 107
+  },
+  {
+    "id": 16,
+    "name": "Волгоград",
+    "slug": "volgograd",
+    "weight": 55969,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 160
+  },
+  {
+    "id": 17,
+    "name": "Тюмень",
+    "slug": "tyumen",
+    "weight": 54619,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 107
+  },
+  {
+    "id": 18,
+    "name": "Омск",
+    "slug": "omsk",
+    "weight": 52769,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 163
+  },
+  {
+    "id": 19,
+    "name": "Владивосток",
+    "slug": "vladivostok",
+    "weight": 50420,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 180
+  },
+  {
+    "id": 20,
+    "name": "Саратов",
+    "slug": "saratov",
+    "weight": 47736,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 165
+  },
+  {
+    "id": 21,
+    "name": "Воронеж",
+    "slug": "voronezh",
+    "weight": 47232,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 178
+  },
+  {
+    "id": 22,
+    "name": "Ставрополь",
+    "slug": "stavropol",
+    "weight": 44862,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 164
+  },
+  {
+    "id": 23,
+    "name": "Тула",
+    "slug": "tula",
+    "weight": 37900,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 176
+  },
+  {
+    "id": 24,
+    "name": "Калининград",
+    "slug": "kaliningrad",
+    "weight": 37400,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 127
+  },
+  {
+    "id": 25,
+    "name": "Хабаровск",
+    "slug": "khabarovsk",
+    "weight": 36643,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 136
+  },
+  {
+    "id": 26,
+    "name": "Оренбург",
+    "slug": "orenburg",
+    "weight": 35685,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 176
+  },
+  {
+    "id": 27,
+    "name": "Ханты-Мансийск",
+    "slug": "khanty-mansiysk",
+    "weight": 33727,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 105
+  },
+  {
+    "id": 28,
+    "name": "Иркутск",
+    "slug": "irkutsk",
+    "weight": 33713,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 166
+  },
+  {
+    "id": 29,
+    "name": "Ярославль",
+    "slug": "yaroslavl",
+    "weight": 32888,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 180
+  },
+  {
+    "id": 30,
+    "name": "Ижевск",
+    "slug": "izhevsk",
+    "weight": 32692,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 98
+  },
+  {
+    "id": 31,
+    "name": "Тольятти",
+    "slug": "tolyatti",
+    "weight": 32169,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 141
+  },
+  {
+    "id": 32,
+    "name": "Сочи",
+    "slug": "sochi",
+    "weight": 29656,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 133
+  },
+  {
+    "id": 33,
+    "name": "Белгород",
+    "slug": "belgorod",
+    "weight": 29286,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 86
+  },
+  {
+    "id": 34,
+    "name": "Архангельск",
+    "slug": "archangelsk",
+    "weight": 29199,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 43
+  },
+  {
+    "id": 35,
+    "name": "Тверь",
+    "slug": "tver",
+    "weight": 29052,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 75
+  },
+  {
+    "id": 36,
+    "name": "Ульяновск",
+    "slug": "ulyanovsk",
+    "weight": 28750,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 133
+  },
+  {
+    "id": 37,
+    "name": "Киров",
+    "slug": "kirov",
+    "weight": 27844,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 56
+  },
+  {
+    "id": 38,
+    "name": "Владимир",
+    "slug": "vladimir",
+    "weight": 26914,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 97
+  },
+  {
+    "id": 39,
+    "name": "Томск",
+    "slug": "tomsk",
+    "weight": 26379,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 72
+  },
+  {
+    "id": 40,
+    "name": "Чебоксары",
+    "slug": "cheboksary",
+    "weight": 26310,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 56
+  },
+  {
+    "id": 41,
+    "name": "Рязань",
+    "slug": "ryazan",
+    "weight": 25039,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 131
+  },
+  {
+    "id": 42,
+    "name": "Пенза",
+    "slug": "penza",
+    "weight": 24746,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 88
+  },
+  {
+    "id": 43,
+    "name": "Махачкала",
+    "slug": "makhachkala",
+    "weight": 23664,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 42
+  },
+  {
+    "id": 44,
+    "name": "Улан-Удэ",
+    "slug": "ulan-ude",
+    "weight": 22536,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 35
+  },
+  {
+    "id": 45,
+    "name": "Калуга",
+    "slug": "kaluga",
+    "weight": 22059,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 78
+  },
+  {
+    "id": 46,
+    "name": "Липецк",
+    "slug": "lipetsk",
+    "weight": 21752,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 86
+  },
+  {
+    "id": 47,
+    "name": "Астрахань",
+    "slug": "astrakhan",
+    "weight": 21736,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 38
+  },
+  {
+    "id": 48,
+    "name": "Вологда",
+    "slug": "vologda",
+    "weight": 21471,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 54
+  },
+  {
+    "id": 49,
+    "name": "Иваново",
+    "slug": "ivanovo",
+    "weight": 20366,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 55
+  },
+  {
+    "id": 50,
+    "name": "Якутск",
+    "slug": "yakutsk",
+    "weight": 19610,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 15
+  },
+  {
+    "id": 51,
+    "name": "Мурманск",
+    "slug": "murmansk",
+    "weight": 18339,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 43
+  },
+  {
+    "id": 52,
+    "name": "Тамбов",
+    "slug": "tambov",
+    "weight": 18304,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 61
+  },
+  {
+    "id": 53,
+    "name": "Смоленск",
+    "slug": "smolensk",
+    "weight": 17956,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 56
+  },
+  {
+    "id": 54,
+    "name": "Брянск",
+    "slug": "bryansk",
+    "weight": 17898,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 71
+  },
+  {
+    "id": 55,
+    "name": "Южно-Сахалинск",
+    "slug": "yuzhno-sakhalinsk",
+    "weight": 17789,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 16
+  },
+  {
+    "id": 56,
+    "name": "Псков",
+    "slug": "pskov",
+    "weight": 17640,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 24
+  },
+  {
+    "id": 57,
+    "name": "Курск",
+    "slug": "kursk",
+    "weight": 17136,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 53
+  },
+  {
+    "id": 58,
+    "name": "Благовещенск",
+    "slug": "blagoveshchensk",
+    "weight": 15636,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 21
+  },
+  {
+    "id": 59,
+    "name": "Чита",
+    "slug": "chita",
+    "weight": 15453,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 39
+  },
+  {
+    "id": 60,
+    "name": "Сыктывкар",
+    "slug": "syktyvkar",
+    "weight": 15190,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 23
+  },
+  {
+    "id": 61,
+    "name": "Орёл",
+    "slug": "orel",
+    "weight": 15124,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 55
+  },
+  {
+    "id": 62,
+    "name": "Курган",
+    "slug": "kurgan",
+    "weight": 15084,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 27
+  },
+  {
+    "id": 63,
+    "name": "Петрозаводск",
+    "slug": "petrozavodsk",
+    "weight": 14575,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 34
+  },
+  {
+    "id": 64,
+    "name": "Йошкар-Ола",
+    "slug": "yoshkar-ola",
+    "weight": 14398,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 28
+  },
+  {
+    "id": 65,
+    "name": "Абакан",
+    "slug": "abakan",
+    "weight": 13877,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 21
+  },
+  {
+    "id": 66,
+    "name": "Саранск",
+    "slug": "saransk",
+    "weight": 12896,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 40
+  },
+  {
+    "id": 67,
+    "name": "Кострома",
+    "slug": "kostroma",
+    "weight": 12660,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 36
+  },
+  {
+    "id": 68,
+    "name": "Великий Новгород",
+    "slug": "velikiy-novgorod",
+    "weight": 11341,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 41
+  },
+  {
+    "id": 69,
+    "name": "Петропавловск-Камчатский",
+    "slug": "pkamchatskiy",
+    "weight": 10611,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 36
+  },
+  {
+    "id": 70,
+    "name": "Горно-Алтайск",
+    "slug": "gorno-altaysk",
+    "weight": 7384,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 4
+  },
+  {
+    "id": 71,
+    "name": "Владикавказ",
+    "slug": "vladikavkaz",
+    "weight": 5642,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 9
+  },
+  {
+    "id": 72,
+    "name": "Нальчик",
+    "slug": "nalchik",
+    "weight": 3771,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 4
+  },
+  {
+    "id": 73,
+    "name": "Грозный",
+    "slug": "grozny",
+    "weight": 3205,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 14
+  },
+  {
+    "id": 74,
+    "name": "Майкоп",
+    "slug": "maykop",
+    "weight": 2777,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 17
+  },
+  {
+    "id": 75,
+    "name": "Симферополь",
+    "slug": "simferopol",
+    "weight": 1747,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 33
+  },
+  {
+    "id": 76,
+    "name": "Магадан",
+    "slug": "magadan",
+    "weight": 1030,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 0
+  },
+  {
+    "id": 77,
+    "name": "Элиста",
+    "slug": "elista",
+    "weight": 773,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 4
+  },
+  {
+    "id": 78,
+    "name": "Кызыл",
+    "slug": "kyzyl",
+    "weight": 495,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 0
+  },
+  {
+    "id": 79,
+    "name": "Биробиджан",
+    "slug": "birobidzhan",
+    "weight": 402,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 0
+  },
+  {
+    "id": 80,
+    "name": "Черкесск",
+    "slug": "cherkessk",
+    "weight": 364,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 5
+  },
+  {
+    "id": 81,
+    "name": "Нарьян-Мар",
+    "slug": "naryan-mar",
+    "weight": 257,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 1
+  },
+  {
+    "id": 82,
+    "name": "Магасе",
+    "slug": "ingushetia",
+    "weight": 133,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 0
+  },
+  {
+    "id": 83,
+    "name": "Анадырь",
+    "slug": "anadyr",
+    "weight": 104,
+    "created_at": "2026-03-01T09:17:05.074997",
+    "establishments_count": 0
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "name": "Рестораны",
+    "slug": "restaurants",
+    "description": "Рестораны и кафе",
+    "icon": "restaurant",
+    "parent_id": null,
+    "sort_order": 1,
+    "is_active": true
+  },
+  {
+    "id": 2,
+    "name": "Бары",
+    "slug": "bars",
+    "description": "Бары и пабы",
+    "icon": "local_bar",
+    "parent_id": null,
+    "sort_order": 2,
+    "is_active": true
+  },
+  {
+    "id": 3,
+    "name": "Красота и здоровье",
+    "slug": "beauty",
+    "description": "Салоны красоты, спа-салоны, парикмахерские",
+    "icon": "spa",
+    "parent_id": null,
+    "sort_order": 3,
+    "is_active": true
+  },
+  {
+    "id": 4,
+    "name": "Медицина",
+    "slug": "medicine",
+    "description": "Медицинские учреждения и клиники",
+    "icon": "local_hospital",
+    "parent_id": null,
+    "sort_order": 4,
+    "is_active": true
+  },
+  {
+    "id": 5,
+    "name": "Образование",
+    "slug": "education",
+    "description": "Школы, университеты, курсы",
+    "icon": "school",
+    "parent_id": null,
+    "sort_order": 5,
+    "is_active": true
+  },
+  {
+    "id": 6,
+    "name": "Транспорт",
+    "slug": "transport",
+    "description": "Транспортные услуги",
+    "icon": "directions_bus",
+    "parent_id": null,
+    "sort_order": 6,
+    "is_active": true
+  },
+  {
+    "id": 7,
+    "name": "Услуги",
+    "slug": "services",
+    "description": "Различные услуги",
+    "icon": "build",
+    "parent_id": null,
+    "sort_order": 7,
+    "is_active": true
+  },
+  {
+    "id": 8,
+    "name": "Магазины",
+    "slug": "shops",
+    "description": "Розничные магазины",
+    "icon": "shopping_cart",
+    "parent_id": null,
+    "sort_order": 8,
+    "is_active": true
+  },
+  {
+    "id": 9,
+    "name": "Развлечения",
+    "slug": "entertainment",
+    "description": "Развлекательные заведения",
+    "icon": "theaters",
+    "parent_id": null,
+    "sort_order": 9,
+    "is_active": true
+  },
+  {
+    "id": 10,
+    "name": "Спорт и отдых",
+    "slug": "sports",
+    "description": "Спортивные клубы и центры",
+    "icon": "fitness_center",
+    "parent_id": null,
+    "sort_order": 10,
+    "is_active": true
+  },
+  {
+    "id": 11,
+    "name": "Финансы",
+    "slug": "finance",
+    "description": "Банки и финансовые организации",
+    "icon": "account_balance",
+    "parent_id": null,
+    "sort_order": 11,
+    "is_active": true
+  },
+  {
+    "id": 12,
+    "name": "Недвижимость",
+    "slug": "real-estate",
+    "description": "Агентства недвижимости",
+    "icon": "business",
+    "parent_id": null,
+    "sort_order": 12,
+    "is_active": true
+  }
+]
