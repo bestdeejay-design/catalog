@@ -20,6 +20,9 @@ async function loadData() {
         // Отображаем города при загрузке
         displayCities();
         
+        // Отображаем категории при загрузке
+        displayCategories();
+        
         // Настройка обработчиков событий
         setupEventListeners();
     } catch (error) {
@@ -63,8 +66,14 @@ function showSection(sectionId) {
     document.getElementById(sectionId).classList.add('active');
     
     // Если показываем секцию заведений, обновляем список
-    if (sectionId === 'establishments-section' && currentCityId) {
-        loadEstablishmentsForCity(currentCityId);
+    if (sectionId === 'establishments-section') {
+        if (currentCityId) {
+            // Если установлен текущий город, загружаем заведения для этого города
+            loadEstablishmentsForCity(currentCityId);
+        } else if (currentCategoryId) {
+            // Если установлен фильтр по категории, загружаем заведения по категории
+            loadAllEstablishmentsByCategory(currentCategoryId);
+        }
     }
     
     // Если показываем детальную страницу, отображаем текущее заведение
@@ -110,10 +119,52 @@ function displayCategories() {
         `;
         categoryCard.addEventListener('click', () => {
             currentCategoryId = category.id;
-            filterEstablishments();
+            loadAllEstablishmentsByCategory(category.id);
+            document.getElementById('establishments-title').textContent = `Заведения в категории "${category.name}"`;
         });
         categoriesContainer.appendChild(categoryCard);
     });
+}
+
+// Загрузка заведений по категории из всех городов
+async function loadAllEstablishmentsByCategory(categoryId) {
+    try {
+        // Показываем секцию заведений
+        showSection('establishments-section');
+        
+        // Сбрасываем текущий город, так как показываем заведения из всех городов
+        currentCityId = null;
+        
+        // Собираем заведения из всех городов
+        let allEstablishments = [];
+        
+        for (const city of cities) {
+            try {
+                const response = await fetch(`data/${city.slug}.json`);
+                if (response.ok) {
+                    const cityEstablishments = await response.json();
+                    // Фильтруем заведения по выбранной категории
+                    const categoryEstablishments = cityEstablishments.filter(est => est.category_id === categoryId);
+                    allEstablishments = allEstablishments.concat(categoryEstablishments);
+                }
+            } catch (error) {
+                console.warn(`Не удалось загрузить заведения для города ${city.name}:`, error);
+                // Продолжаем с другими городами
+            }
+        }
+        
+        // Сохраняем все заведения по категории
+        establishments = allEstablishments;
+        
+        // Обновляем фильтр категорий - учитываем, что мы уже фильтруем по категории
+        updateCategoryFilter();
+        
+        // Отображаем заведения
+        displayEstablishments(establishments);
+    } catch (error) {
+        console.error('Ошибка загрузки заведений по категории:', error);
+        document.getElementById('establishments-list').innerHTML = '<p>Ошибка загрузки данных</p>';
+    }
 }
 
 // Загрузка заведений для конкретного города
@@ -162,6 +213,11 @@ function updateCategoryFilter() {
             }
         }
     });
+    
+    // Если есть текущая категория фильтра, восстанавливаем её
+    if (currentCategoryId) {
+        categoryFilter.value = currentCategoryId;
+    }
 }
 
 // Отображение списка заведений
@@ -224,7 +280,12 @@ function filterEstablishments() {
 }
 
 // Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', loadData);
+document.addEventListener('DOMContentLoaded', () => {
+    loadData();
+    
+    // Вызываем отображение категорий при загрузке данных
+    // Это произойдет после загрузки данных в функции loadData
+});
 
 // Функция для отображения детальной информации о заведении
 function displayEstablishmentDetail(establishment) {
