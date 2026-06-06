@@ -15,18 +15,8 @@ function parseJSON(str, fallback = null) {
 }
 
 function getImagePath(img) {
-  if (img.local_path) {
-    if (isGitHubPages) return `${LFS_CDN}/${img.local_path}`
-    return img.local_path
-  }
+  if (img.local_path) return img.local_path
   return img.preview || img.original || ''
-}
-
-function getCityImagePath(est) {
-  if (est.images_local && est.images_local.length) return getImagePath(est.images_local[0])
-  const images = parseJSON(est.images, [])
-  if (images && images.length) return images[0].preview || ''
-  return ''
 }
 
 function isOpenNow(hoursStr) {
@@ -50,20 +40,13 @@ function todayHours(hoursArray) {
   return hoursArray.map((h, i) => ({ text: h, isToday: i === idx, openNow: i === idx ? isOpenNow(h) : null }))
 }
 
+const THEME_KEY = 'catalog-theme'
+
 function formatPhone(phone) {
   if (!phone) return ''
   return phone.replace(/[^\d+]/g, '')
 }
-
-function getRemoteFallback(est) {
-  const images = parseJSON(est.images, [])
-  if (images && images.length) return images[0].preview || images[0].original || ''
-  return ''
-}
-
-const THEME_KEY = 'catalog-theme'
 const isGitHubPages = window.location.hostname === 'bestdeejay-design.github.io'
-const LFS_CDN = 'https://media.githubusercontent.com/media/bestdeejay-design/catalog/main'
 
 const app = createApp({
   setup() {
@@ -128,12 +111,14 @@ const app = createApp({
       currentCity.value = city
       currentCategory.value = null
 
-      const withLocalPath = `data-generated/${city.slug}_with_local_images.json`
       const regularPath = `data-generated/${city.slug}.json`
-
+      let resp = await fetch(regularPath)
+      if (!isGitHubPages) {
+        const withLocalPath = `data-generated/${city.slug}_with_local_images.json`
+        let localResp = await fetch(withLocalPath)
+        if (localResp.ok) resp = localResp
+      }
       try {
-        let resp = await fetch(withLocalPath)
-        if (!resp.ok) resp = await fetch(regularPath)
         if (!resp.ok) throw new Error('City data not found')
         const data = await resp.json()
         establishments.value = data
@@ -263,7 +248,7 @@ const app = createApp({
 
     const currentImages = computed(() => {
       if (!currentEstablishment.value) return []
-      if (currentEstablishment.value.images_local && currentEstablishment.value.images_local.length) {
+      if (!isGitHubPages && currentEstablishment.value.images_local && currentEstablishment.value.images_local.length) {
         return currentEstablishment.value.images_local
       }
       return parseJSON(currentEstablishment.value?.images, [])
@@ -525,18 +510,12 @@ app.component('establishments-view', {
       return c ? c.name : ''
     }
     function getCardImage(est) {
-      if (est.images_local && est.images_local.length) return getImagePath(est.images_local[0])
+      if (!isGitHubPages && est.images_local && est.images_local.length) return getImagePath(est.images_local[0])
       const images = parseJSON(est.images, [])
       if (images && images.length) return images[0].preview || ''
       return ''
     }
-    function onCardImgError(event, est) {
-      if (event.target.dataset.fallback) return
-      event.target.dataset.fallback = '1'
-      const fallback = getRemoteFallback(est)
-      if (fallback) event.target.src = fallback
-    }
-    return { onSearchInput, onCategoryChange, getCatName, getCardImage, onCardImgError, debounceTimer }
+    return { onSearchInput, onCategoryChange, getCatName, getCardImage, debounceTimer }
   },
   template: `
     <div>
@@ -581,7 +560,7 @@ app.component('establishments-view', {
                 :src="getCardImage(est)"
               class="est-card-image"
               loading="lazy"
-              @error="onCardImgError($event, est)"
+              @error="$event.target.remove()"
             />
               <div class="est-card-image-placeholder">🏢</div>
             </div>
