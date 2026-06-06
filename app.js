@@ -46,8 +46,6 @@ function formatPhone(phone) {
   if (!phone) return ''
   return phone.replace(/[^\d+]/g, '')
 }
-const isGitHubPages = window.location.hostname === 'bestdeejay-design.github.io'
-
 const app = createApp({
   setup() {
     // --- State ---
@@ -112,12 +110,9 @@ const app = createApp({
       currentCategory.value = null
 
       const regularPath = `data-generated/${city.slug}.json`
-      let resp = await fetch(regularPath)
-      if (!isGitHubPages) {
-        const withLocalPath = `data-generated/${city.slug}_with_local_images.json`
-        let localResp = await fetch(withLocalPath)
-        if (localResp.ok) resp = localResp
-      }
+      const withLocalPath = `data-generated/${city.slug}_with_local_images.json`
+      let resp = await fetch(withLocalPath)
+      if (!resp.ok) resp = await fetch(regularPath)
       try {
         if (!resp.ok) throw new Error('City data not found')
         const data = await resp.json()
@@ -138,6 +133,7 @@ const app = createApp({
 
       const results = []
       for (const city of cities.value) {
+        if (!city.establishments_count) continue
         try {
           const resp = await fetch(`data-generated/${city.slug}.json`)
           if (!resp.ok) continue
@@ -176,6 +172,7 @@ const app = createApp({
         }
       } else {
         for (const city of cities.value) {
+          if (!city.establishments_count) continue
           try {
             const resp = await fetch(`data-generated/${city.slug}.json`)
             if (!resp.ok) continue
@@ -205,6 +202,7 @@ const app = createApp({
       if (allEstablishmentsCache.value) return
       const all = []
       for (const city of cities.value) {
+        if (!city.establishments_count) continue
         try {
           const resp = await fetch(`data-generated/${city.slug}.json`)
           if (!resp.ok) continue
@@ -248,7 +246,7 @@ const app = createApp({
 
     const currentImages = computed(() => {
       if (!currentEstablishment.value) return []
-      if (!isGitHubPages && currentEstablishment.value.images_local && currentEstablishment.value.images_local.length) {
+      if (currentEstablishment.value.images_local && currentEstablishment.value.images_local.length) {
         return currentEstablishment.value.images_local
       }
       return parseJSON(currentEstablishment.value?.images, [])
@@ -510,7 +508,7 @@ app.component('establishments-view', {
       return c ? c.name : ''
     }
     function getCardImage(est) {
-      if (!isGitHubPages && est.images_local && est.images_local.length) return getImagePath(est.images_local[0])
+      if (est.images_local && est.images_local.length) return getImagePath(est.images_local[0])
       const images = parseJSON(est.images, [])
       if (images && images.length) return images[0].preview || ''
       return ''
