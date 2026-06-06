@@ -1,0 +1,4 @@
+FROM python:3.11-slim
+WORKDIR /app
+COPY analyze_data.py .
+CMD ["python", "analyze_data.py"]

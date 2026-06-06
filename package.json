@@ -1,0 +1,21 @@
+{
+  "name": "catalog-improvements",
+  "version": "1.0.0",
+  "description": "Catalog project improvements - image downloader and UI enhancements",
+  "main": "scripts/download-images.js",
+  "scripts": {
+    "download-images": "node scripts/download-images.js",
+    "download-all": "node scripts/download-all-cities.js",
+    "create-queue": "node scripts/create-download-queue.js"
+  },
+  "keywords": [
+    "catalog",
+    "images",
+    "downloader"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0"
+  }
+}

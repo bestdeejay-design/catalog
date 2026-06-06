@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проверка категорий</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .stat-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 2em;
+        }
+        .stat-card p {
+            margin: 0;
+            opacity: 0.9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+        tr:hover {
+            background: #f5f5f5;
+        }
+        .success {
+            color: #4caf50;
+            font-weight: bold;
+        }
+        .error {
+            color: #f44336;
+            font-weight: bold;
+        }
+        .warning {
+            color: #ff9800;
+            font-weight: bold;
+        }
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 1.2em;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Проверка категорий заведений</h1>
+        
+        <div id="loading" class="loading">
+            Загрузка данных...
+        </div>
+        
+        <div id="content" style="display: none;">
+            <div class="stats">
+                <div class="stat-card">
+                    <h3 id="total">0</h3>
+                    <p>Всего заведений</p>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);">
+                    <h3 id="withCategory">0</h3>
+                    <p>С категорией</p>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);">
+                    <h3 id="withoutCategory">0</h3>
+                    <p>Без категории</p>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);">
+                    <h3 id="percentage">0%</h3>
+                    <p>Распределено</p>
+                </div>
+            </div>
+            
+            <h2>Статистика по категориям:</h2>
+            <table id="categoriesTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Категория</th>
+                        <th>Количество заведений</th>
+                        <th>%</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            
+            <h2 style="margin-top: 40px;">Примеры заведений (первые 20):</h2>
+            <table id="establishmentsTable">
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Адрес</th>
+                        <th>Категория</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        async function checkData() {
+            try {
+                // Загружаем данные
+                const [citiesRes, categoriesRes, moscowRes] = await Promise.all([
+                    fetch('data-generated/cities.json'),
+                    fetch('data-generated/categories.json'),
+                    fetch('data-generated/moscow.json')
+                ]);
+                
+                const cities = await citiesRes.json();
+                const categories = await categoriesRes.json();
+                const moscow = await moscowRes.json();
+                
+                // Считаем статистику
+                const total = moscow.length;
+                const withCategory = moscow.filter(e => e.category_id).length;
+                const withoutCategory = total - withCategory;
+                const percentage = ((withCategory / total) * 100).toFixed(1);
+                
+                // Обновляем статистику
+                document.getElementById('total').textContent = total.toLocaleString();
+                document.getElementById('withCategory').textContent = withCategory.toLocaleString();
+                document.getElementById('withoutCategory').textContent = withoutCategory.toLocaleString();
+                document.getElementById('percentage').textContent = percentage + '%';
+                
+                // Таблица категорий
+                const categoriesTbody = document.querySelector('#categoriesTable tbody');
+                categories.forEach(cat => {
+                    const count = moscow.filter(e => e.category_id === cat.id).length;
+                    const percent = ((count / total) * 100).toFixed(1);
+                    
+                    const row = `
+                        <tr>
+                            <td>${cat.id}</td>
+                            <td>${cat.name}</td>
+                            <td>${count.toLocaleString()}</td>
+                            <td>${percent}%</td>
+                        </tr>
+                    `;
+                    categoriesTbody.innerHTML += row;
+                });
+                
+                // Таблица заведений
+                const establishmentsTbody = document.querySelector('#establishmentsTable tbody');
+                moscow.slice(0, 20).forEach(est => {
+                    const category = categories.find(c => c.id === est.category_id);
+                    const categoryName = category ? category.name : '<span class="warning">Не указана</span>';
+                    const statusClass = est.category_id ? 'success' : 'error';
+                    const statusText = est.category_id ? '✓' : '✗';
+                    
+                    const row = `
+                        <tr>
+                            <td>${est.name}</td>
+                            <td>${est.address}</td>
+                            <td>${categoryName}</td>
+                            <td class="${statusClass}">${statusText}</td>
+                        </tr>
+                    `;
+                    establishmentsTbody.innerHTML += row;
+                });
+                
+                // Показываем контент
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Ошибка загрузки:', error);
+                document.getElementById('loading').innerHTML = `
+                    <p style="color: #f44336;">❌ Ошибка загрузки данных!</p>
+                    <p>Убедитесь, что сервер запущен (npm start или python -m http.server 8000)</p>
+                    <p>Детали ошибки в консоли браузера (F12)</p>
+                `;
+            }
+        }
+        
+        // Запускаем проверку при загрузке страницы
+        checkData();
+    </script>
+</body>
+</html>
