@@ -15,7 +15,10 @@ function parseJSON(str, fallback = null) {
 }
 
 function getImagePath(img) {
-  if (img.local_path) return img.local_path
+  if (img.local_path) {
+    if (isGitHubPages) return `${LFS_CDN}/${img.local_path}`
+    return img.local_path
+  }
   return img.preview || img.original || ''
 }
 
@@ -52,7 +55,15 @@ function formatPhone(phone) {
   return phone.replace(/[^\d+]/g, '')
 }
 
+function getRemoteFallback(est) {
+  const images = parseJSON(est.images, [])
+  if (images && images.length) return images[0].preview || images[0].original || ''
+  return ''
+}
+
 const THEME_KEY = 'catalog-theme'
+const isGitHubPages = window.location.hostname === 'bestdeejay-design.github.io'
+const LFS_CDN = 'https://media.githubusercontent.com/media/bestdeejay-design/catalog/main'
 
 const app = createApp({
   setup() {
@@ -519,7 +530,13 @@ app.component('establishments-view', {
       if (images && images.length) return images[0].preview || ''
       return ''
     }
-    return { onSearchInput, onCategoryChange, getCatName, getCardImage, debounceTimer }
+    function onCardImgError(event, est) {
+      if (event.target.dataset.fallback) return
+      event.target.dataset.fallback = '1'
+      const fallback = getRemoteFallback(est)
+      if (fallback) event.target.src = fallback
+    }
+    return { onSearchInput, onCategoryChange, getCatName, getCardImage, onCardImgError, debounceTimer }
   },
   template: `
     <div>
@@ -562,10 +579,10 @@ app.component('establishments-view', {
               <img
                 v-if="getCardImage(est)"
                 :src="getCardImage(est)"
-                class="est-card-image"
-                loading="lazy"
-                @error="$event.target.remove()"
-              />
+              class="est-card-image"
+              loading="lazy"
+              @error="onCardImgError($event, est)"
+            />
               <div class="est-card-image-placeholder">🏢</div>
             </div>
             <div class="est-card-info">
@@ -619,7 +636,7 @@ app.component('establishment-detail', {
         <div class="detail-main-col">
           <div v-if="images.length" class="detail-card">
             <div class="gallery-main-wrap" @click="$emit('open-lightbox')">
-              <img :src="getImagePath(images[galleryIndex])" alt="Фото" />
+              <img :src="getImagePath(images[galleryIndex])" alt="Фото" @error="onGalleryError" />
               <button class="gallery-nav prev" @click.stop="$emit('prev-image')">‹</button>
               <button class="gallery-nav next" @click.stop="$emit('next-image')">›</button>
               <span class="gallery-counter">{{ galleryIndex + 1 }} / {{ images.length }}</span>
@@ -630,7 +647,7 @@ app.component('establishment-detail', {
                 :class="['gallery-thumb', { active: i === galleryIndex }]"
                 @click="$emit('set-image', i)"
               >
-                <img :src="getImagePath(img)" loading="lazy" alt="Миниатюра" />
+                <img :src="getImagePath(img)" loading="lazy" alt="Миниатюра" @error="onThumbError($event, i)" />
               </div>
             </div>
           </div>
@@ -710,7 +727,7 @@ app.component('establishment-detail', {
       <teleport to="body">
         <div v-if="lightboxOpen" class="lightbox-overlay" @click="$emit('close-lightbox')">
           <button class="lightbox-close" @click="$emit('close-lightbox')">×</button>
-          <img :src="lightboxImage" @click.stop alt="Полноразмерное фото" />
+          <img :src="lightboxImage" @click.stop @error="onLightboxError" alt="Полноразмерное фото" />
         </div>
       </teleport>
     </div>
@@ -718,6 +735,24 @@ app.component('establishment-detail', {
   methods: {
     getImagePath,
     formatPhone,
+    onGalleryError(event) {
+      if (event.target.dataset.fallback) return
+      event.target.dataset.fallback = '1'
+      const img = this.images[this.galleryIndex]
+      if (img && img.preview) event.target.src = img.preview
+    },
+    onThumbError(event, idx) {
+      if (event.target.dataset.fallback) return
+      event.target.dataset.fallback = '1'
+      const img = this.images[idx]
+      if (img && img.preview) event.target.src = img.preview
+    },
+    onLightboxError(event) {
+      if (event.target.dataset.fallback) return
+      event.target.dataset.fallback = '1'
+      const img = this.images[this.galleryIndex]
+      if (img) event.target.src = img.original || img.preview || ''
+    },
   },
   data() {
     return { SOCIAL_ICONS }
