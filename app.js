@@ -110,9 +110,9 @@ const app = createApp({
       currentCategory.value = null
 
       const regularPath = `data-generated/${city.slug}.json`
-      const withLocalPath = `data-generated/${city.slug}_with_local_images.json`
-      let resp = await fetch(withLocalPath)
-      if (!resp.ok) resp = await fetch(regularPath)
+      const CITIES_WITH_LOCAL = new Set(['moscow','spb','novosibirsk','kazan','krasnodar','yaroslavl','cheliabinsk','yekaterinburg'])
+      let resp = CITIES_WITH_LOCAL.has(city.slug) ? await fetch(`data-generated/${city.slug}_with_local_images.json`) : null
+      if (!resp || !resp.ok) resp = await fetch(regularPath)
       try {
         if (!resp.ok) throw new Error('City data not found')
         const data = await resp.json()
